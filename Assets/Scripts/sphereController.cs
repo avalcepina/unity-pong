@@ -2,19 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class sphereController : MonoBehaviour
+public class SphereController : MonoBehaviour
 {
-    public float thrust = 2000.0f;
+    public float thrust = 600.0f;
 
     // Start is called before the first frame update
     void Start()
     {
         GetComponent<Rigidbody>().AddForce(transform.forward * -thrust);
+
+        //transform.position = new Vector3(transform.position.x, 0, transform.position.z);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

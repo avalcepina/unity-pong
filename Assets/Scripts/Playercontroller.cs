@@ -5,18 +5,17 @@ using UnityEngine;
 public class Playercontroller : MonoBehaviour
 {
 
-    public float moveSpeed = 15.0f;
-    public float movingBoundary = 10;
+    public float moveSpeed = 20.0f;
 
     // Update is called once per frame
     void Update()
     {
 
 
-        if (Input.GetAxis("Horizontal") > 0f && transform.position.x < movingBoundary)
+        if (Input.GetAxis("Vertical") > 0f)
             transform.Translate(new Vector3(0, 0, 1) * moveSpeed * Time.deltaTime);
 
-        if (Input.GetAxis("Horizontal") < 0f && transform.position.x > -movingBoundary)
+        if (Input.GetAxis("Vertical") < 0f)
             transform.Translate(-new Vector3(0, 0, 1) * moveSpeed * Time.deltaTime);
 
     }

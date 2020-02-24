@@ -54,6 +54,10 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+*_Data
+*.exe
+MonoBleedingEdge
+UnityPlayer.dll
 
 # Crashlytics generated file
 crashlytics-build.properties
