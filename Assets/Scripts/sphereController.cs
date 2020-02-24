@@ -11,7 +11,6 @@ public class SphereController : MonoBehaviour
     {
         GetComponent<Rigidbody>().AddForce(transform.forward * -thrust);
 
-        //transform.position = new Vector3(transform.position.x, 0, transform.position.z);
     }
 
 }

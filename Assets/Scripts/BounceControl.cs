@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BounceControl : MonoBehaviour
 {
-    public float thrust = 100.0f;
+    public float thrust = 0.00001f;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -12,16 +12,31 @@ public class BounceControl : MonoBehaviour
         ContactPoint contact = collision.GetContact(0);
         //float distance = Vector3.Distance(contact.point, transform.position);
 
-        Vector3 direction = contact.point - transform.position;
 
 
-        // Vector3 velocity = collision.rigidbody.velocity;
+
+        Vector3 velocity = collision.rigidbody.velocity;
 
 
-        // collision.
-        // direction = new Vector3(direction.x, 0, direction.z);
+        if (velocity.x > 0)
+        {
 
-        collision.rigidbody.AddForce(direction * thrust);
+            Vector3 direction = new Vector3(0, 0, 1);
+
+            collision.rigidbody.AddForce(direction * thrust, ForceMode.Force);
+
+            collision.rigidbody.AddForce(velocity / 10, ForceMode.VelocityChange);
+
+        }
+        else
+        {
+
+            Vector3 direction = new Vector3(0, 0, -1);
+
+            collision.rigidbody.AddForce(direction * thrust, ForceMode.Force);
+
+            collision.rigidbody.AddForce(velocity / 10, ForceMode.VelocityChange);
+        }
 
     }
 
