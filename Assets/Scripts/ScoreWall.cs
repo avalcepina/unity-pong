@@ -5,10 +5,13 @@ using UnityEngine;
 public class ScoreWall : MonoBehaviour
 {
 
+    [SerializeField]
+    public GameController gc;
+
     private void OnCollisionEnter(Collision collision)
     {
 
-        // GameObject.Destroy(collision.rigidbody.gameObject);
+        gc.HandleScoring();
 
     }
 

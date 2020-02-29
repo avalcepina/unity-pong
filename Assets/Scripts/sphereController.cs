@@ -6,10 +6,9 @@ public class SphereController : MonoBehaviour
 {
     public float thrust = 600.0f;
 
-    // Start is called before the first frame update
-    void Start()
+    public void StartMoving()
     {
-        GetComponent<Rigidbody>().AddForce(transform.forward * -thrust);
+        GetComponent<Rigidbody>().AddForce(transform.right * -thrust);
 
     }
 

@@ -21,57 +21,62 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
 
-        float distance = Mathf.Abs(sphere.transform.position.x - transform.position.x);
-
-        if (timeMoving > 0.1f)
-        {
-            isMoving = false;
-            timeMoving = 0;
-        }
-
-        if (isMoving)
-        {
-            transform.Translate(direction * Time.deltaTime);
-            timeMoving += Time.deltaTime;
-        }
-        else
+        if (enabled)
         {
 
-            if (distance <= 15)
+            float distance = Mathf.Abs(sphere.transform.position.x - transform.position.x);
+
+            if (timeMoving > 0.1f)
             {
+                isMoving = false;
+                timeMoving = 0;
+            }
 
-                if (sphere.transform.position.z > transform.position.z + 2)
-                {
-                    transform.Translate(new Vector3(0, 0, 1) * -moveSpeed * Time.deltaTime);
-                    isMoving = true;
-                    direction = new Vector3(0, 0, 1) * -moveSpeed;
-                }
-
-                if (sphere.transform.position.z < transform.position.z - 2)
-                {
-                    transform.Translate(new Vector3(0, 0, 1) * moveSpeed * Time.deltaTime);
-                    isMoving = true;
-                    direction = new Vector3(0, 0, 1) * moveSpeed;
-                }
-
+            if (isMoving)
+            {
+                transform.Translate(direction * Time.deltaTime);
+                timeMoving += Time.deltaTime;
             }
             else
             {
 
-                float value = Random.Range(0f, 1f);
+                if (distance <= 15)
+                {
 
-                if (value < 0.1)
-                {
-                    transform.Translate(new Vector3(0, 0, 1) * -moveSpeed * Time.deltaTime);
-                    isMoving = true;
-                    direction = new Vector3(0, 0, 1) * -moveSpeed;
+                    if (sphere.transform.position.z > transform.position.z + 2)
+                    {
+                        transform.Translate(new Vector3(0, 0, 1) * -moveSpeed * Time.deltaTime);
+                        isMoving = true;
+                        direction = new Vector3(0, 0, 1) * -moveSpeed;
+                    }
+
+                    if (sphere.transform.position.z < transform.position.z - 2)
+                    {
+                        transform.Translate(new Vector3(0, 0, 1) * moveSpeed * Time.deltaTime);
+                        isMoving = true;
+                        direction = new Vector3(0, 0, 1) * moveSpeed;
+                    }
+
                 }
-                else if (value < 0.2)
+                else
                 {
-                    transform.Translate(new Vector3(0, 0, 1) * moveSpeed * Time.deltaTime);
-                    isMoving = true;
-                    direction = new Vector3(0, 0, 1) * moveSpeed;
+
+                    float value = Random.Range(0f, 1f);
+
+                    if (value < 0.1)
+                    {
+                        transform.Translate(new Vector3(0, 0, 1) * -moveSpeed * Time.deltaTime);
+                        isMoving = true;
+                        direction = new Vector3(0, 0, 1) * -moveSpeed;
+                    }
+                    else if (value < 0.2)
+                    {
+                        transform.Translate(new Vector3(0, 0, 1) * moveSpeed * Time.deltaTime);
+                        isMoving = true;
+                        direction = new Vector3(0, 0, 1) * moveSpeed;
+                    }
                 }
+
             }
 
         }
