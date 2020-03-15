@@ -519,7 +519,7 @@ PrefabInstance:
     - target: {fileID: 7221781665931001411, guid: 5929a63081b9d0c419b31427dd5ed7ce,
         type: 3}
       propertyPath: m_CollisionDetection
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5929a63081b9d0c419b31427dd5ed7ce, type: 3}
@@ -603,7 +603,7 @@ PrefabInstance:
     - target: {fileID: 7221781665931001411, guid: 5929a63081b9d0c419b31427dd5ed7ce,
         type: 3}
       propertyPath: m_CollisionDetection
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5929a63081b9d0c419b31427dd5ed7ce, type: 3}

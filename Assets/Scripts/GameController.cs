@@ -114,6 +114,11 @@ public class GameController : MonoBehaviour
 
 
         }
+        else
+        {
+
+            ResetGame();
+        }
 
 
     }
