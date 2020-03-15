@@ -145,23 +145,23 @@ public class GameController : MonoBehaviour
             GameObject.Destroy(go);
         }
 
-        GameObject sphereObject = Instantiate(sphere, new Vector3(16, 0, 0), Quaternion.identity);
+        GameObject sphereObject = Instantiate(sphere, new Vector3(0, 0, 0), Quaternion.identity);
 
         enemy.GetComponent<EnemyController>().sphere = sphereObject;
 
-        Instantiate(enemy, new Vector3(1, 0, 0), Quaternion.Euler(0, 180, 0));
+        Instantiate(enemy, new Vector3(-15, 0, 0), Quaternion.Euler(0, 180, 0));
 
         if (gameState == GameState.DEMO)
         {
 
 
-            Instantiate(enemy, new Vector3(31, 0, 0), Quaternion.Euler(0, 180, 0));
+            Instantiate(enemy, new Vector3(15, 0, 0), Quaternion.Euler(0, 180, 0));
 
         }
         else
         {
 
-            Instantiate(player, new Vector3(31, 0, 0), Quaternion.Euler(0, 180, 0));
+            Instantiate(player, new Vector3(15, 0, 0), Quaternion.Euler(0, 180, 0));
         }
 
 
