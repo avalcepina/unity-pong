@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BounceControl : MonoBehaviour
 {
@@ -10,15 +8,10 @@ public class BounceControl : MonoBehaviour
     {
 
         ContactPoint contact = collision.GetContact(0);
-        //float distance = Vector3.Distance(contact.point, transform.position);
-
-
-
 
         Vector3 velocity = collision.rigidbody.velocity;
 
-
-        if (velocity.x > 0)
+        if (contact.point.x > transform.position.x)
         {
 
             Vector3 direction = new Vector3(0, 0, 1);
@@ -28,7 +21,7 @@ public class BounceControl : MonoBehaviour
             collision.rigidbody.AddForce(velocity / 10, ForceMode.VelocityChange);
 
         }
-        else
+        else if (contact.point.x < transform.position.x)
         {
 
             Vector3 direction = new Vector3(0, 0, -1);
