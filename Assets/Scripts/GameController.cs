@@ -36,6 +36,7 @@ public class GameController : MonoBehaviour
     public void Update()
     {
 
+        // We only need to handle the game over state, in which we wait for a click to restart the game
         if (gameState == GameState.GAMEOVER)
         {
             if (Input.anyKey && timeSinceGameOver >= 2)
@@ -49,28 +50,35 @@ public class GameController : MonoBehaviour
         }
     }
 
+    // Setting up demo game
     public void StartDemoGame()
     {
 
+        // Setting game state
         gameState = GameState.DEMO;
 
-
+        // Setting up ui
         victoryPanel.SetActive(false);
         gameOverPanel.SetActive(false);
         mainMenuPanel.SetActive(true);
         gamePanel.SetActive(false);
 
+        // Resetting game
         ResetGame();
 
 
     }
 
+    // Diplaying victory screen
     public void Victory()
     {
-
+        // Resetting timer to handle click event
         timeSinceGameOver = 0;
+
+        // Setting game state
         gameState = GameState.GAMEOVER;
 
+        // Destroying all interactive objects
         GameObject[] gos = GameObject.FindGameObjectsWithTag("Interactive");
 
         foreach (var go in gos)
@@ -78,6 +86,7 @@ public class GameController : MonoBehaviour
             GameObject.Destroy(go);
         }
 
+        // Setting up ui
         victoryPanel.SetActive(true);
         gameOverPanel.SetActive(false);
         mainMenuPanel.SetActive(false);
@@ -88,9 +97,13 @@ public class GameController : MonoBehaviour
     public void GameOver()
     {
 
+        // Resetting timer to handle click event
         timeSinceGameOver = 0;
+
+        // Setting game state
         gameState = GameState.GAMEOVER;
 
+        // Destroying all interactive objects
         GameObject[] gos = GameObject.FindGameObjectsWithTag("Interactive");
 
         foreach (var go in gos)
@@ -98,6 +111,7 @@ public class GameController : MonoBehaviour
             GameObject.Destroy(go);
         }
 
+        // Setting up ui
         victoryPanel.SetActive(false);
         gameOverPanel.SetActive(true);
         mainMenuPanel.SetActive(false);
@@ -105,10 +119,9 @@ public class GameController : MonoBehaviour
 
     }
 
+    // Handle score increase
     public void HandleScoring(string wallName)
     {
-
-
 
         if (gameState == GameState.PLAYING)
         {
@@ -116,11 +129,12 @@ public class GameController : MonoBehaviour
             if (wallName == leftWall.name)
             {
 
-
+                // Increasing player 1 score
                 int newScoreValue = Int16.Parse(player1ScoreText.text) + 1;
 
                 player1ScoreText.text = newScoreValue.ToString();
 
+                //Checking victory condition
                 if (newScoreValue >= maximumScore)
                 {
                     Victory();
@@ -136,10 +150,12 @@ public class GameController : MonoBehaviour
             else if (wallName == rightWall.name)
             {
 
+                // Increasing player 2 score
                 int newScoreValue = Int16.Parse(player2ScoreText.text) + 1;
 
                 player2ScoreText.text = newScoreValue.ToString();
 
+                // Checking loss condition
                 if (newScoreValue >= maximumScore)
                 {
                     GameOver();
@@ -158,6 +174,7 @@ public class GameController : MonoBehaviour
         else
         {
 
+            // Resetting game if we are in demo state
             ResetGame();
         }
 
@@ -165,30 +182,29 @@ public class GameController : MonoBehaviour
     }
 
 
-    public void HandleScore(Text playerScore)
-    {
-
-
-
-    }
-
+    // Starting new game
     public void StartNewGame()
     {
 
+        // Setting game state
         gameState = GameState.PLAYING;
 
+        // Resetting score
         player1ScoreText.text = "0";
         player2ScoreText.text = "0";
 
+        // Setting up ui
         victoryPanel.SetActive(false);
         gameOverPanel.SetActive(false);
         mainMenuPanel.SetActive(false);
         gamePanel.SetActive(true);
 
+        // Resetting game
         ResetGame();
 
     }
 
+    // Resets game to starting state
     private void ResetGame()
     {
 
@@ -225,6 +241,7 @@ public class GameController : MonoBehaviour
 
     }
 
+    // Quit game
     public void Quit()
     {
         Application.Quit();
