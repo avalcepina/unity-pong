@@ -13,13 +13,15 @@ public class GameController : MonoBehaviour
     public GameObject mainMenuPanel;
     public GameObject gamePanel;
     public GameObject gameOverPanel;
-    private GameState gameState;
-    public int scoreIncrease;
-    public int startingLives;
+    public GameObject victoryPanel;
     public ScoreWall rightWall;
     public ScoreWall leftWall;
-    public Text livesText;
-    public Text scoreText;
+    public Text player1ScoreText;
+    public Text player2ScoreText;
+    public int maximumScore;
+
+    private GameState gameState;
+    private float timeSinceGameOver;
 
     public GameState GetGameState()
     {
@@ -36,9 +38,13 @@ public class GameController : MonoBehaviour
 
         if (gameState == GameState.GAMEOVER)
         {
-            if (Input.anyKey)
+            if (Input.anyKey && timeSinceGameOver >= 2)
             {
                 StartDemoGame();
+            }
+            else
+            {
+                timeSinceGameOver += Time.deltaTime;
             }
         }
     }
@@ -49,7 +55,7 @@ public class GameController : MonoBehaviour
         gameState = GameState.DEMO;
 
 
-
+        victoryPanel.SetActive(false);
         gameOverPanel.SetActive(false);
         mainMenuPanel.SetActive(true);
         gamePanel.SetActive(false);
@@ -59,9 +65,10 @@ public class GameController : MonoBehaviour
 
     }
 
-    public void EndGame()
+    public void Victory()
     {
 
+        timeSinceGameOver = 0;
         gameState = GameState.GAMEOVER;
 
         GameObject[] gos = GameObject.FindGameObjectsWithTag("Interactive");
@@ -71,6 +78,27 @@ public class GameController : MonoBehaviour
             GameObject.Destroy(go);
         }
 
+        victoryPanel.SetActive(true);
+        gameOverPanel.SetActive(false);
+        mainMenuPanel.SetActive(false);
+        gamePanel.SetActive(false);
+
+    }
+
+    public void GameOver()
+    {
+
+        timeSinceGameOver = 0;
+        gameState = GameState.GAMEOVER;
+
+        GameObject[] gos = GameObject.FindGameObjectsWithTag("Interactive");
+
+        foreach (var go in gos)
+        {
+            GameObject.Destroy(go);
+        }
+
+        victoryPanel.SetActive(false);
         gameOverPanel.SetActive(true);
         mainMenuPanel.SetActive(false);
         gamePanel.SetActive(false);
@@ -88,27 +116,40 @@ public class GameController : MonoBehaviour
             if (wallName == leftWall.name)
             {
 
-                scoreText.text = (Int64.Parse(scoreText.text) + scoreIncrease).ToString();
 
-                ResetGame();
+                int newScoreValue = Int16.Parse(player1ScoreText.text) + 1;
 
-            }
-            else if (wallName == rightWall.name)
-            {
+                player1ScoreText.text = newScoreValue.ToString();
 
-                int newLivesValue = Int16.Parse(livesText.text) - 1;
-
-                livesText.text = newLivesValue.ToString();
-
-                if (newLivesValue <= 0)
+                if (newScoreValue >= maximumScore)
                 {
-                    EndGame();
+                    Victory();
                 }
                 else
                 {
 
                     ResetGame();
                 }
+
+
+            }
+            else if (wallName == rightWall.name)
+            {
+
+                int newScoreValue = Int16.Parse(player2ScoreText.text) + 1;
+
+                player2ScoreText.text = newScoreValue.ToString();
+
+                if (newScoreValue >= maximumScore)
+                {
+                    GameOver();
+                }
+                else
+                {
+
+                    ResetGame();
+                }
+
 
             }
 
@@ -123,15 +164,23 @@ public class GameController : MonoBehaviour
 
     }
 
+
+    public void HandleScore(Text playerScore)
+    {
+
+
+
+    }
+
     public void StartNewGame()
     {
 
         gameState = GameState.PLAYING;
 
-        scoreText.text = "0";
-        livesText.text = startingLives.ToString();
+        player1ScoreText.text = "0";
+        player2ScoreText.text = "0";
 
-
+        victoryPanel.SetActive(false);
         gameOverPanel.SetActive(false);
         mainMenuPanel.SetActive(false);
         gamePanel.SetActive(true);
